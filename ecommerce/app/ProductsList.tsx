@@ -1,21 +1,30 @@
 import { Product } from "./product-data";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductsList( { products } : { products: Product[] } ) {
 
     return (
 
-        products.map( product => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" >
 
-            <div key={ product.id }>
+            {products.map( product => (
 
-                <Image src={ "/" + product.imageUrl } alt={ product.name ?? 'Product Image' } width={ 150 } height={ 150 } />
-                <h2>{ product.name }</h2>
-                <p>{ product.price }</p>
+                <Link key={ product.id } href={ "/products/" + product.id } className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300" >
 
-            </div>
+                    <div className="flex justify-center mb-4 h-48 relative">
 
-        ) )
+                        <Image src={ "/" + product.imageUrl } alt={ product.name ?? 'Product Image' } fill className="object-cover rounded-md" />
+
+                    </div>
+                    <h2 className="text-xl font-semibold mb-2">{ product.name }</h2>
+                    <p className="text-gray-600">${ product.price }</p>
+
+                </Link>
+
+            ))};
+
+        </div>
 
     );
 
